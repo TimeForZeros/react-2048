@@ -6,7 +6,7 @@ const favicon = require("serve-favicon");
 const app = express();
 
 require('dotenv').config();
-// require('./config/database');
+require('./config/database');
 
 app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
 app.use(logger("dev"));
