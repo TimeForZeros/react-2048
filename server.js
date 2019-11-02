@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, "build")));
 
 
 //APIs
-// app.use('/api/users', require('./routes/api/users'));
+ app.use('/api/users', require('./routes/api/users'));
 // app.use('/api/events', require('./routes/api/events'));
 
 
