@@ -5,7 +5,8 @@ import { Route, Switch, Redirect, Link } from "react-router-dom";
 import userService from './utils/userService'
 import SignupPage from "./pages/SignUpPage/SignUpPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import NavBar from './components/NavBar/NavBar'
+import NavBar from './components/NavBar/NavBar';
+import GameBoard from './components/GameBoard/GameBoard';
 
 
 
@@ -33,6 +34,11 @@ render() {
       </header>
       <main>
       <Switch>
+        <Route exact path ="/" render={({history}) => (
+
+          <GameBoard />
+        )}
+        />
       <Route
             exact
             path="/signup"
