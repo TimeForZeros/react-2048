@@ -2,20 +2,20 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import './GameBoard.css';
 
-// const colors = {
-//     "0": "rgb(239, 244, 250)",
-//     "2": "#09B5A5",
-//     "4": "#0994BA",
-//     "8": "#0A69C4",
-//     "16": "#0027A6",
-//     "32": "#0C0680",
-//     "64": "#200159",
-//     "128": "#6C2CDE",
-//     "256": "#A82EE8",
-//     "512": "#C934D1",
-//     "1024": "#B02371",
-//     "2048": "#962425"
-//   };
+const colors = {
+    "0": "rgb(239, 244, 250)",
+    "2": "#09B5A5",
+    "4": "#0994BA",
+    "8": "#0A69C4",
+    "16": "#0027A6",
+    "32": "#0C0680",
+    "64": "#200159",
+    "128": "#6C2CDE",
+    "256": "#A82EE8",
+    "512": "#C934D1",
+    "1024": "#B02371",
+    "2048": "#962425"
+  };
   
 //   const moves = {
 //     left: function shiftLeft(boardArr) {
@@ -51,15 +51,14 @@ import './GameBoard.css';
 //       return boardArr;
 //     }
 //   };
-  
-//   var score = 0;
-//   var board = [
-//     [0, 0, 0, 0], //Row 1 idx 0
-//     [0, 0, 0, 0], //Row 2 idx 1
-//     [0, 0, 0, 0], //Row 3 idx 2
-//     [0, 0, 0, 0] //Row 4 idx 3
-//   ];
-//   let scoreDisplay = document.getElementById("score");
+  let score = 0;
+  let board = [
+    [0, 0, 0, 0], //Row 1 idx 0
+    [0, 0, 0, 0], //Row 2 idx 1
+    [0, 0, 0, 0], //Row 3 idx 2
+    [0, 0, 0, 0] //Row 4 idx 3
+  ];
+   let scoreDisplay = document.getElementById("score");
   
 //   //step 1. returns array of nonzeros
 //   function reduceArr(arr) {
@@ -122,31 +121,27 @@ import './GameBoard.css';
 //     return transposedArr;
 //   }
   
-//   function init() {
-//     scoreDisplay.textContent = 0;
-//     render(board);
-//     spawnInit(board);
-//   }
+
   
 //   //creating the render function
   
-//   function render(arr) {
-//     //function that goes through the board array rows
-//     arr.forEach(function(colArr, rowIdx) {
-//       //function that goes through the column index of the row arrays
-//       colArr.forEach(function(cell, colIdx) {
-//         let tile = document.getElementById(`c${colIdx}r${rowIdx}`);
-//         tile.style.backgroundColor = colors[cell.toString()];
-//       });
-//     });
-//     return arr;
-//   }
+  function render(arr) {
+    //function that goes through the board array rows
+    arr.forEach(function(colArr, rowIdx) {
+      //function that goes through the column index of the row arrays
+      colArr.forEach(function(cell, colIdx) {
+        let tile = document.getElementById(`c${colIdx}r${rowIdx}`);
+        tile.style.backgroundColor = colors[cell.toString()];
+      });
+    });
+    return arr;
+  }
   
 //   //document.querySelector('.grid').addEventListener('click', handleClick);
   
-//   function randomNum() {
-//     return Math.floor(Math.random() * 4);
-//   }
+  function randomNum() {
+    return Math.floor(Math.random() * 4);
+  }
   
 //   function renderUpdate() {
 //     let col = randomNum();
@@ -169,21 +164,21 @@ import './GameBoard.css';
 //     return (tileUpdate.style.backgroundColor = colors[updateNum.toString()]);
 //   }
   
-//   function spawnInit(arr) {
-//     for (var i = 0; i < 2; ) {
-//       let col = randomNum();
-//       let row = randomNum();
-//       let updateNum = null;
-//       let tileUpdate = document.getElementById(`c${col}r${row}`);
-//       if (board[row][col] === 0) {
-//         board[row][col] = 2;
-//         updateNum = board[row][col];
-//         i++;
-//         tileUpdate.style.backgroundColor = colors[updateNum.toString()];
-//       }
-//     }
-//     return arr;
-//   }
+  function spawnInit(arr) {
+    for (var i = 0; i < 2; ) {
+      let col = randomNum();
+      let row = randomNum();
+      let updateNum = null;
+      let tileUpdate = document.getElementById(`c${col}r${row}`);
+      if (board[row][col] === 0) {
+        board[row][col] = 2;
+        updateNum = board[row][col];
+        i++;
+        tileUpdate.style.backgroundColor = colors[updateNum.toString()];
+      }
+    }
+    return arr;
+  }
 //   document.onkeydown = function(e) {
 //     switch (e.keyCode) {
 //       case 37: //left
@@ -283,10 +278,18 @@ import './GameBoard.css';
 //   init();
 
 
-class GameBoard extends Component {
+// componentDidMount: function(){
+//     var name = React.findDOMNode
+// }
 
-  
+// function init() {
+//     scoreDisplay.textContent = 0;
+//     render(board);
+//     spawnInit(board);
+//   }
+class GameBoard extends Component {
   render() {
+    //   init();
       return (
 <div>
 <body>
