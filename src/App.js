@@ -6,7 +6,7 @@ import userService from "./utils/userService";
 import SignupPage from "./pages/SignUpPage/SignUpPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NavBar from "./components/NavBar/NavBar";
-import GameBoard from "./components/GameBoard/GameBoard_old";
+import GameBoard from "./components/GameBoard/GameBoard";
 
 class App extends Component {
   constructor() {
