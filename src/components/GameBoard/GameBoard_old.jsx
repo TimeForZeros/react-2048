@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+// import board from './Moves';
 import {Link} from 'react-router-dom';
 import './GameBoard.css';
 
