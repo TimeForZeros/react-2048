@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moves from './Moves';
 import "./GameBoard.css";
 // import board from './Moves';
 
@@ -19,90 +20,157 @@ const colors = {
 };
 
 
+
 function randomNum() {
  return Math.floor(Math.random() * 4);
 }
+  
 
 
-  //   //step 1. returns array of nonzeros
-  function reduceArr(arr) {
-    function nonZeroFind(nonZero) {
-      return nonZero > 0;
-    }
-    return arr.filter(nonZeroFind);
-  }
+  // function renderUpdate(boardUpdate) {
+  //   let col = randomNum();
+  //   let row = randomNum();
+  //   if (boardUpdate[row][col] === 0) {
+  //     if (randomNum() > 2) {
+  //       boardUpdate[row][col] = 4;
+  //       this.setState({board: boardUpdate})
+  //     } else {
+  //       boardUpdate[row][col] = 2;
+  //       this.setState({board: boardUpdate})
+  //     }
+  //   } 
+  //   console.log('this is ' + boardUpdate);
+  //   // else {
+  //   //   renderUpdate(boardUpdate);
+  //   // }
+  // }
   
-//   //step 2. combines like values
-  function combineNums(arr) {
-    arr.forEach(function(num, idx) {
-      if (arr[idx + 1] == arr[idx]) {
-        arr[idx] *= 2;
-        this.state.score += arr[idx];
-        // scoreDisplay.textContent = score;
-        arr.splice(idx + 1, 1);
-        return arr[idx];
-      } else {
-        return;
-      }
-    });
+
+  // //check for win
+  // function winCheck(arr) {
+  //   arr.forEach(function(rowArr) {
+  //     rowArr.forEach(function(winNumber) {
+  //       if (winNumber === 2048) {
+  //         alert("YOU WIN!!!!");
+  //       }
+  //     });
+  //   });
+  // }
   
-    return arr;
-  }
-  
-//   //step 3. returns an array with a length of 4
-  function fillArr(arr) {
-    for (arr.length; arr.length < 4; ) {
-      arr.push(0);
-    }
-    return arr;
-  }
-  
-  //alt step (right shift)
-  function rightMove(arr) {
-    var flip = fillArr(combineNums(reduceArr(arr.reverse())));
-    return flip.reverse();
-  }
-  
-  //Moves
-  function leftMove(arr) {
-    return fillArr(combineNums(reduceArr(arr)));
-  }
-  
-//   //updated Col Converter
-  
-  function colConverter(arr) {
-    var transposedArr = [[0, 0, 0, 0],
-                         [0, 0, 0, 0], 
-                         [0, 0, 0, 0], 
-                         [0, 0, 0, 0]];
-    arr.forEach(function(rowArr, rowIdx) {
-      rowArr.forEach(function(val, colIdx) {
-        transposedArr[colIdx].splice(rowIdx, 1, val);
-        return transposedArr;
-      });
-      return transposedArr;
-    });
-    return transposedArr;
-  }
+  //check for lose
+  // function loseCheck(arr) {
+  //   return;
+  //   arr.forEach(function(rowArr) {
+  //     rowArr.forEach(function(isZero) {
+  //       while (isZero != 0)
+  //         if (isZero === 0) {
+  //           return;
+  //         } else {
+  //           let checkBoard = Array.from(this.state.board);
+  //           let checkUp = JSON.stringify(moves.up(checkBoard));
+  //           let checkDown = JSON.stringify(moves.down(checkBoard));
+  //           let checkLeft = JSON.stringify(moves.left(checkBoard));
+  //           let checkRight = JSON.stringify(moves.right(checkBoard));
+  //           if (checkUp === checkDown && checkLeft === checkRight) {
+  //             alert("You lose!");
+  //           } else {
+  //             return;
+  //           }
+  //         }
+  //     });
+  //   });
+  // }
 
 
 class GameBoard extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       board:  [ 
-      [0, 0, 0, 0], //Row 1 idx 0
-      [0, 0, 0, 0], //Row 2 idx 1
-      [0, 0, 0, 0], //Row 3 idx 2
-      [0, 0, 0, 0] //Row 4 idx 3
+        [0, 0, 0, 0], //Row 1 idx 0
+        [0, 0, 0, 0], //Row 2 idx 1
+        [0, 0, 0, 0], //Row 3 idx 2
+        [0, 0, 0, 0] //Row 4 idx 3
       ],
       score: 0,
     }
   }
 
 
+  // componentDidMount(){
+  //   let changingBoard = this.state.board.slice();
+  //   document.onkeydown = function(e) {
+  //     switch (e.keyCode) {
+  //       case 37: //left
+  //         {
+  //           const sentryArray = JSON.stringify(changingBoard);
+  //           let sentryCheck = "";
+  //           let tempArray = boardRender(moves.left(changingBoard));
+  //           console.log('temp ' + tempArray);
+  //           // winCheck(tempArray);
+  //           sentryCheck = JSON.stringify(changingBoard);
+  //           // let board = tempArray.slice();
+  //           changingBoard = tempArray.slice();
+  //           console.log('board is this: ' + changingBoard);
+  //           // let board = Array.from(tempArray);
+  //           if (sentryArray !== sentryCheck) {
+  //             // loseCheck(board);
+  //             renderUpdate(changingBoard);
+  //           } else return;
+  //         }
+  //         break;
+  //       // case 38: //up
+  //       //   {
+  //       //     const sentryArray = JSON.stringify(board);
+  //       //     let sentryCheck = "";
+  //       //     let tempArray = render(moves.up(board));
+  //       //     winCheck(tempArray);
+  //       //     sentryCheck = JSON.stringify(tempArray);
+  //       //     board = Array.from(tempArray);
+  //       //     if (sentryArray !== sentryCheck) {
+  //       //       loseCheck(board);
+  //       //       renderUpdate(board);
+  //       //     } else return;
+  //       //   }
+  //       //   break;
+  //       // case 39: //right
+  //       //   {
+  //       //     const sentryArray = JSON.stringify(board);
+  //       //     let sentryCheck = "";
+  //       //     let tempArray = render(moves.right(board));
+  //       //     winCheck(tempArray);
+  //       //     sentryCheck = JSON.stringify(tempArray);
+  //       //     board = Array.from(tempArray);
+  //       //     if (sentryArray !== sentryCheck) {
+  //       //       loseCheck(board);
+  //       //       renderUpdate(board);
+  //       //     } else return;
+  //       //   }
+  //       //   break;
+  //       // case 40: //down
+  //       //   {
+  //       //     const sentryArray = JSON.stringify(board);
+  //       //     let sentryCheck = "";
+  //       //     let tempArray = render(moves.down(board));
+  //       //     winCheck(tempArray);
+  //       //     sentryCheck = JSON.stringify(tempArray);
+  //       //     board = Array.from(tempArray);
+  //       //     if (sentryArray !== sentryCheck) {
+  //       //       loseCheck(board);
+  //       //       renderUpdate(board);
+  //       //     } else return;
+  //       //   }
+  //         break;
+  //     }
+  //   };
+  // };
+
+
+    
+
   boardRender = (arr) => {
     let newArr = [];
+    console.log('board render' + arr);
     //function that goes through the board array rows
     arr.forEach(function(colArr, rowIdx) {
       //function that goes through the column index of the row arrays
@@ -120,6 +188,7 @@ class GameBoard extends Component {
           }))
       });
     });
+    // this.setState({board: newArr});
     return newArr;
   };
 
@@ -135,14 +204,18 @@ class GameBoard extends Component {
     }
   }
 
+  
+
   init() {
     this.boardRender(this.state.board);
     this.spawnInit(this.state.board);
-    console.log(this.state.board);
   }
 
   render() {
     this.init();
+
+
+
     return (
       <div>
         <div className="main">
