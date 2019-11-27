@@ -18,44 +18,10 @@ const colors = {
   "2048": "#962425"
 };
 
-// let board = [
-//   [0, 0, 0, 0], //Row 1 idx 0
-//   [0, 0, 0, 0], //Row 2 idx 1
-//   [0, 0, 0, 0], //Row 3 idx 2
-//   [0, 0, 0, 0] //Row 4 idx 3
-// ];
-
 
 function randomNum() {
  return Math.floor(Math.random() * 4);
 }
-
-
-
-//randomly initializes two elements with values of 2
-
-
-//BACKUP
-// function spawnInit(arr) {
-//   for (var i = 0; i < 2; ) {
-//     let col = randomNum();
-//     let row = randomNum();
-//     let updateNum = null;
-//     let tileUpdate = document.getElementById(`c${col}r${row}`);
-//     if (this.state.board[row][col] === 0) {
-//       this.state.board[row][col] = 2;
-//       updateNum = this.state.board[row][col];
-//       i++;
-//       // tileUpdate.style.backgroundColor = colors[updateNum.toString()];
-//     }
-//   }
-//   return arr;
-// }
-
-
-
-  let scoreDisplay = document.getElementById("score");
-  let score = 0;
 
 
   //   //step 1. returns array of nonzeros
@@ -71,7 +37,7 @@ function randomNum() {
     arr.forEach(function(num, idx) {
       if (arr[idx + 1] == arr[idx]) {
         arr[idx] *= 2;
-        // score += arr[idx];
+        this.state.score += arr[idx];
         // scoreDisplay.textContent = score;
         arr.splice(idx + 1, 1);
         return arr[idx];
@@ -130,6 +96,7 @@ class GameBoard extends Component {
       [0, 0, 0, 0], //Row 3 idx 2
       [0, 0, 0, 0] //Row 4 idx 3
       ],
+      score: 0,
     }
   }
 
@@ -149,8 +116,7 @@ class GameBoard extends Component {
               backgroundColor: `${colors[cell]}`,
               margin: "5px",
               borderRadius: '20px'
-            },
-            value: 0
+            }
           }))
       });
     });
@@ -158,33 +124,22 @@ class GameBoard extends Component {
   };
 
   spawnInit(arr) {
+    let board = arr.slice();
     for (var i = 0; i < 2; ) {
       let col = randomNum();
       let row = randomNum();
-      let updateNum = null;
-      let board = arr.slice();
-      let tileUpdate = document.getElementById(`c${col}r${row}`);
       if (board[row][col] === 0) {
         board[row][col] = 2;
-        updateNum = board[row][col];
-        this.setState({board: board});
         i++;
-        // tileUpdate.style.backgroundColor = colors[updateNum.toString()];
-  
       }
     }
-    return arr;
   }
 
   init() {
-    // scoreDisplay.textContent = 0;
     this.boardRender(this.state.board);
     this.spawnInit(this.state.board);
+    console.log(this.state.board);
   }
-
-
-
-
 
   render() {
     this.init();
@@ -193,6 +148,7 @@ class GameBoard extends Component {
         <div className="main">
           <h2>2048 </h2>
           <section className='grid'> {this.boardRender(this.state.board)}</section>
+          <div>Score: {this.state.score}</div>
         </div>
       </div>
     );
@@ -200,31 +156,3 @@ class GameBoard extends Component {
 }
 
 export default GameBoard;
-
-
-
-
-// const unusedGrid = (
-//     <section className="grid">
-//     <div id="c0r0"></div>
-//     <div id="c1r0"></div>
-//     <div id="c2r0"></div>
-//     <div id="c3r0"></div>
-
-//     <div id="c0r1"></div>
-//     <div id="c1r1"></div>
-//     <div id="c2r1"></div>
-//     <div id="c3r1"></div>
-
-//     <div id="c0r2"></div>
-//     <div id="c1r2"></div>
-//     <div id="c2r2"></div>
-//     <div id="c3r2"></div>
-
-//     <div id="c0r3"></div>
-//     <div id="c1r3"></div>
-//     <div id="c2r3"></div>
-//     <div id="c3r3"></div>
-//   </section>
-
-// )
