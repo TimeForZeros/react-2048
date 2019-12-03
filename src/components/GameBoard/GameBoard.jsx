@@ -20,42 +20,29 @@ const colors = {
   "2048": "#962425"
 };
 
-var cells = {
-  id: `c0r0`,
-  // id: `c${colIdx}r${rowIdx}`,
-  style: {
-    display: 'block',  
-    width: "90px",
-    height: "90px",
-    backgroundColor:`${colors[0]}`,
-    margin: "5px",
-    borderRadius: '20px'
-  }
-}
-
-function randomNum() {
+let randomNum = () => {
  return Math.floor(Math.random() * 4);
 }
   
 
 
-  // function renderUpdate(boardUpdate) {
-  //   let col = randomNum();
-  //   let row = randomNum();
-  //   if (boardUpdate[row][col] === 0) {
-  //     if (randomNum() > 2) {
-  //       boardUpdate[row][col] = 4;
-  //       this.setState({board: boardUpdate})
-  //     } else {
-  //       boardUpdate[row][col] = 2;
-  //       this.setState({board: boardUpdate})
-  //     }
-  //   } 
-  //   console.log('this is ' + boardUpdate);
-  //   // else {
-  //   //   renderUpdate(boardUpdate);
-  //   // }
-  // }
+  let renderUpdate = (boardUpdate) => {
+    let col = randomNum();
+    let row = randomNum();
+    if (boardUpdate[row][col] === 0) {
+      if (randomNum() > 2) {
+        boardUpdate[row][col] = 4;
+        // this.setState({board: boardUpdate})
+      } else {
+        boardUpdate[row][col] = 2;
+        // this.setState({board: boardUpdate})
+      }
+    } 
+    else {
+      renderUpdate(boardUpdate);
+    }
+    return boardUpdate;
+  }
   
 
   // //check for win
@@ -228,44 +215,14 @@ class GameBoard extends Component {
     return newArr;
   };
   clickyFunction = () => {
-    this.setState({board: moves.left(this.state.board)});
-   //  return console.log(this.setState({board: moves.left(this.state.board)}));
+    let board = moves.left(this.state.board);
+    board = renderUpdate(board);
+    this.setState({board: board});
    };
 
-  // spawnInit(arr) {
-  //   let board = arr.slice();
-  //   for (var i = 0; i < 2; ) {
-  //     let col = randomNum();
-  //     let row = randomNum();
-  //     if (board[row][col] === 0) {
-  //       board[row][col] = 2;
-  //       i++;
-  //     }
-  //   }
-  // }
 
-
-
-
-  init() {
-    // this.boardRender(this.state.board);
-    this.spawnInit(this.state.board);
-  //   console.log(this.state.board);
-  //   this.setState({board:  [ 
-  //     [4, 0, 0, 0], //Row 1 idx 0
-  //     [0, 0, 0, 0], //Row 2 idx 1
-  //     [0, 8, 0, 0], //Row 3 idx 2
-  //     [0, 0, 0, 0] //Row 4 idx 3
-  //   ]
-  // });
-    
-
-  }
 
   render() {
-    // this.spawnInit(this.state.board);
-    // let foo = moves.left(this.state.board);
-    // this.setState({board: foo});
 
     return (
       <div>
