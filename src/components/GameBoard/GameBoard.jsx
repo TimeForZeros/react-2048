@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moves from './Moves';
 import "./GameBoard.css";
+import { spawn } from "child_process";
 // import board from './Moves';
 
 
@@ -92,17 +93,41 @@ function randomNum() {
   //   });
   // }
 
+let spawnInit = (arr) => {
+    let board = arr.slice();
+    for (var i = 0; i < 2; ) {
+      let col = randomNum();
+      let row = randomNum();
+      if (board[row][col] === 0) {
+        board[row][col] = 2;
+        i++;
+      }
+    }
+  }
+
+let initBoard = () => {
+  let board =  [ 
+    [0, 0, 0, 0], //Row 1 idx 0
+    [0, 0, 0, 0], //Row 2 idx 1
+    [0, 0, 0, 0], //Row 3 idx 2
+    [0, 0, 0, 0] //Row 4 idx 3
+  ];
+  spawnInit(board);
+  return board;
+}
+
 
 class GameBoard extends Component {
   constructor() {
     super();
     this.state = {
-      board:  [ 
-        [0, 0, 0, 0], //Row 1 idx 0
-        [0, 0, 0, 0], //Row 2 idx 1
-        [0, 0, 0, 0], //Row 3 idx 2
-        [0, 0, 0, 0] //Row 4 idx 3
-      ],
+      board: initBoard(),
+      // board:  [ 
+      //   [0, 0, 0, 0], //Row 1 idx 0
+      //   [0, 0, 0, 0], //Row 2 idx 1
+      //   [0, 0, 0, 0], //Row 3 idx 2
+      //   [0, 0, 0, 0] //Row 4 idx 3
+      // ],
       score: 0,
     }
   }
@@ -202,35 +227,51 @@ class GameBoard extends Component {
     // this.setState({board: newArr});
     return newArr;
   };
+  clickyFunction = () => {
+    this.setState({board: moves.left(this.state.board)});
+   //  return console.log(this.setState({board: moves.left(this.state.board)}));
+   };
 
-  spawnInit(arr) {
-    let board = arr.slice();
-    for (var i = 0; i < 2; ) {
-      let col = randomNum();
-      let row = randomNum();
-      if (board[row][col] === 0) {
-        board[row][col] = 2;
-        i++;
-      }
-    }
-  }
+  // spawnInit(arr) {
+  //   let board = arr.slice();
+  //   for (var i = 0; i < 2; ) {
+  //     let col = randomNum();
+  //     let row = randomNum();
+  //     if (board[row][col] === 0) {
+  //       board[row][col] = 2;
+  //       i++;
+  //     }
+  //   }
+  // }
+
 
 
 
   init() {
-    this.boardRender(this.state.board);
+    // this.boardRender(this.state.board);
     this.spawnInit(this.state.board);
+  //   console.log(this.state.board);
+  //   this.setState({board:  [ 
+  //     [4, 0, 0, 0], //Row 1 idx 0
+  //     [0, 0, 0, 0], //Row 2 idx 1
+  //     [0, 8, 0, 0], //Row 3 idx 2
+  //     [0, 0, 0, 0] //Row 4 idx 3
+  //   ]
+  // });
+    
+
   }
 
   render() {
-    this.init();
-
-
+    // this.spawnInit(this.state.board);
+    // let foo = moves.left(this.state.board);
+    // this.setState({board: foo});
 
     return (
       <div>
         <div className="main">
           <h2>2048 </h2>
+          <button onClick={this.clickyFunction}>Test</button>
           {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
           <section class="grid">
             <div id='c0r0' style={{backgroundColor: colors[`${this.state.board[0][0]}`]}}></div>
