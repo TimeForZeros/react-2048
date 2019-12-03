@@ -19,7 +19,18 @@ const colors = {
   "2048": "#962425"
 };
 
-
+var cells = {
+  id: `c0r0`,
+  // id: `c${colIdx}r${rowIdx}`,
+  style: {
+    display: 'block',  
+    width: "90px",
+    height: "90px",
+    backgroundColor:`${colors[0]}`,
+    margin: "5px",
+    borderRadius: '20px'
+  }
+}
 
 function randomNum() {
  return Math.floor(Math.random() * 4);
@@ -181,7 +192,7 @@ class GameBoard extends Component {
               display: 'block',  
               width: "90px",
               height: "90px",
-              backgroundColor: `${colors[cell]}`,
+              backgroundColor:`${colors[cell]}`,
               margin: "5px",
               borderRadius: '20px'
             }
@@ -204,7 +215,7 @@ class GameBoard extends Component {
     }
   }
 
-  
+
 
   init() {
     this.boardRender(this.state.board);
@@ -220,7 +231,28 @@ class GameBoard extends Component {
       <div>
         <div className="main">
           <h2>2048 </h2>
-          <section className='grid'> {this.boardRender(this.state.board)}</section>
+          {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
+          <section class="grid">
+            <div id='c0r0' style={{backgroundColor: colors[`${this.state.board[0][0]}`]}}></div>
+            <div id="c1r0" style={{backgroundColor: colors[`${this.state.board[0][1]}`]}}></div>
+            <div id="c2r0" style={{backgroundColor: colors[`${this.state.board[0][2]}`]}}></div>
+            <div id="c3r0" style={{backgroundColor: colors[`${this.state.board[0][3]}`]}}></div>
+
+            <div id="c0r1" style={{backgroundColor: colors[`${this.state.board[1][0]}`]}}></div>
+            <div id="c1r1" style={{backgroundColor: colors[`${this.state.board[1][1]}`]}}></div>
+            <div id="c2r1" style={{backgroundColor: colors[`${this.state.board[1][2]}`]}}></div>
+            <div id="c3r1" style={{backgroundColor: colors[`${this.state.board[1][3]}`]}}></div>
+
+            <div id="c0r2" style={{backgroundColor: colors[`${this.state.board[2][0]}`]}}></div>
+            <div id="c1r2" style={{backgroundColor: colors[`${this.state.board[2][1]}`]}}></div>
+            <div id="c2r2" style={{backgroundColor: colors[`${this.state.board[2][2]}`]}}></div>
+            <div id="c3r2" style={{backgroundColor: colors[`${this.state.board[2][3]}`]}}></div>
+
+            <div id="c0r3" style={{backgroundColor: colors[`${this.state.board[3][0]}`]}}></div>
+            <div id="c1r3" style={{backgroundColor: colors[`${this.state.board[3][1]}`]}}></div>
+            <div id="c2r3" style={{backgroundColor: colors[`${this.state.board[3][2]}`]}}></div>
+            <div id="c3r3" style={{backgroundColor: colors[`${this.state.board[3][3]}`]}}></div>
+        </section>
           <div>Score: {this.state.score}</div>
         </div>
       </div>
