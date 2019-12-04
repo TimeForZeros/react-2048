@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  height: 50vh;
 }
 
 .App-logo {
@@ -19,4 +25,11 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.container {
+margin: auto;
+
+
+  
 }

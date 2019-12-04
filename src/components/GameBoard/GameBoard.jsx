@@ -193,7 +193,6 @@ class GameBoard extends Component {
 
   boardRender = (arr) => {
     let newArr = [];
-    console.log('board render' + arr);
     //function that goes through the board array rows
     arr.forEach(function(colArr, rowIdx) {
       //function that goes through the column index of the row arrays

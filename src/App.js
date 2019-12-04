@@ -30,7 +30,7 @@ class App extends Component {
         <header className="App-header">
           <NavBar />
         </header>
-        <main>
+        <main className="container">
           <Switch>
             <Route exact path="/" render={({ history }) => <GameBoard />} />
             <Route
