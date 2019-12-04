@@ -216,6 +216,8 @@ class GameBoard extends Component {
   };
 
    componentDidMount(){
+    console.log('This version of the game is dedicated to my love, the 2048 master Kendira');
+    console.log('I\n Love\n   You\n     Kendi!!!!')
     document.onkeydown = (e) => {
       let score = this.state.score;
       let changingBoard = this.state.board.slice();
@@ -232,8 +234,6 @@ class GameBoard extends Component {
 
   
   render() {
-    
-    console.log('This version of the game is dedicated to my love, the 2048 master Kendira');
 
     
     return (
