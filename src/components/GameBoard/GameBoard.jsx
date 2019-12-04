@@ -111,12 +111,6 @@ class GameBoard extends Component {
     super();
     this.state = {
       board: initBoard(),
-      // board:  [ 
-      //   [0, 0, 0, 0], //Row 1 idx 0
-      //   [0, 0, 0, 0], //Row 2 idx 1
-      //   [0, 0, 0, 0], //Row 3 idx 2
-      //   [0, 0, 0, 0] //Row 4 idx 3
-      // ],
       score: 0,
     }
   }
@@ -152,7 +146,6 @@ class GameBoard extends Component {
     }
   
   };
-  
   arrayManip = {
   transpose: (arr) => {
     return arr[0].map((col, i) => arr.map(row => row[i]))
@@ -188,7 +181,12 @@ class GameBoard extends Component {
   }
   }
   
-
+  keyDirection = {
+    '37': 'left',
+    '38': 'up',
+    '39': 'right',
+    '40': 'down'
+  }
 
 
     
@@ -221,84 +219,21 @@ class GameBoard extends Component {
     document.onkeydown = (e) => {
       let score = this.state.score;
       let changingBoard = this.state.board.slice();
-      switch (e.keyCode) {
-        case 37: //left
-          {
             const arrayBefore = JSON.stringify(changingBoard);
-            let movedBoard = this.moves.left(changingBoard, score);
+            let movedBoard = this.moves[this.keyDirection[e.keyCode]](changingBoard);
             //winCheck(movedBoard)
             let check = JSON.stringify(movedBoard);
             if (arrayBefore !== check) {
               //loseCheck
               this.setState({board: renderUpdate(movedBoard)});
             }
-            
-  //           const sentryArray = JSON.stringify(changingBoard);
-  //           let sentryCheck = "";
-  //           let tempArray = boardRender(moves.left(changingBoard));
-  //           console.log('temp ' + tempArray);
-  //           // winCheck(tempArray);
-  //           sentryCheck = JSON.stringify(changingBoard);
-  //           // let board = tempArray.slice();
-  //           changingBoard = tempArray.slice();
-  //           console.log('board is this: ' + changingBoard);
-  //           // let board = Array.from(tempArray);
-  //           if (sentryArray !== sentryCheck) {
-  //             // loseCheck(board);
-  //             renderUpdate(changingBoard);
-  //           } else return;
-          };
-  //         break;
-  //       // case 38: //up
-  //       //   {
-  //       //     const sentryArray = JSON.stringify(board);
-  //       //     let sentryCheck = "";
-  //       //     let tempArray = render(moves.up(board));
-  //       //     winCheck(tempArray);
-  //       //     sentryCheck = JSON.stringify(tempArray);
-  //       //     board = Array.from(tempArray);
-  //       //     if (sentryArray !== sentryCheck) {
-  //       //       loseCheck(board);
-  //       //       renderUpdate(board);
-  //       //     } else return;
-  //       //   }
-  //       //   break;
-  //       // case 39: //right
-  //       //   {
-  //       //     const sentryArray = JSON.stringify(board);
-  //       //     let sentryCheck = "";
-  //       //     let tempArray = render(moves.right(board));
-  //       //     winCheck(tempArray);
-  //       //     sentryCheck = JSON.stringify(tempArray);
-  //       //     board = Array.from(tempArray);
-  //       //     if (sentryArray !== sentryCheck) {
-  //       //       loseCheck(board);
-  //       //       renderUpdate(board);
-  //       //     } else return;
-  //       //   }
-  //       //   break;
-  //       // case 40: //down
-  //       //   {
-  //       //     const sentryArray = JSON.stringify(board);
-  //       //     let sentryCheck = "";
-  //       //     let tempArray = render(moves.down(board));
-  //       //     winCheck(tempArray);
-  //       //     sentryCheck = JSON.stringify(tempArray);
-  //       //     board = Array.from(tempArray);
-  //       //     if (sentryArray !== sentryCheck) {
-  //       //       loseCheck(board);
-  //       //       renderUpdate(board);
-  //       //     } else return;
-  //       //   }
-  //         break;
-      }
     };
   };
 
-
+  
   render() {
-
-
+    
+    console.log('This version of the game is dedicated to my love, the 2048 master Kendira');
 
     
     return (
