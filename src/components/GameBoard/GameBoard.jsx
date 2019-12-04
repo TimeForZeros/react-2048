@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import moves from './Moves';
+// import moves from './Moves';
 import "./GameBoard.css";
 import { spawn } from "child_process";
 // import board from './Moves';
@@ -43,6 +43,8 @@ let randomNum = () => {
     }
     return boardUpdate;
   }
+  
+
   
 
   // //check for win
@@ -119,13 +121,118 @@ class GameBoard extends Component {
     }
   }
 
+  moves = {
+    left: (arr) => {
+      let resultArr = arr.map(elArr => {
+        return this.arrayManip.fill(this.arrayManip.merge(this.arrayManip.filter(elArr)));
+        }
+      );
+      return resultArr;
+  },
+    right: (arr) => {
+      let resultArr = arr.map(elArr => {
+        return this.arrayManip.reverse(this.arrayManip.fill(this.arrayManip.merge(this.arrayManip.reverse(this.arrayManip.filter(elArr)))));
+        }
+      ); 
+      return resultArr;
+    },
+    up: (arr) => {
+      let transposedArr = this.arrayManip.transpose(arr);
+      let resultArr = transposedArr.map(elArr => {
+        return this.arrayManip.fill(this.arrayManip.merge(this.arrayManip.filter(elArr)));
+        });
+        return this.arrayManip.transpose(resultArr);
+    },
+    down: (arr) => {
+      let transposedArr = this.arrayManip.transpose(arr);
+      let resultArr = transposedArr.map(elArr => {
+        return this.arrayManip.reverse(this.arrayManip.fill(this.arrayManip.merge(this.arrayManip.reverse(this.arrayManip.filter(elArr)))));
+        });
+        return this.arrayManip.transpose(resultArr);
+    }
+  
+  };
+  
+  arrayManip = {
+  transpose: (arr) => {
+    return arr[0].map((col, i) => arr.map(row => row[i]))
+  },
+  reverse: (arr) => {
+    let newArr = [];
+    for (let i = 0; i < arr.length; i++ ) {
+      newArr.unshift(arr[i]);
+    }
+    return newArr
+  },
+  filter: (arr) => {
+    return arr.filter(e => e > 0);
+  },
+  
+  merge: (arr) => {
+    for (let i = 0; i < arr.length - 1; i++) {
+      if (arr[i] === arr[i + 1]) {
+        arr[i] = 2 * arr[i];
+        let score = this.state.score;
+        score += arr[i];
+        this.setState({score: score});
+        arr.splice([i + 1], 1);
+      }
+    }
+    return arr;
+  },
+  fill: (arr) => {
+    while (arr.length < 4) {
+      arr.push(0);
+    }
+    return arr
+  }
+  }
+  
 
-  // componentDidMount(){
-  //   let changingBoard = this.state.board.slice();
-  //   document.onkeydown = function(e) {
-  //     switch (e.keyCode) {
-  //       case 37: //left
-  //         {
+
+
+    
+
+  boardRender = (arr) => {
+    let newArr = [];
+    console.log('board render' + arr);
+    //function that goes through the board array rows
+    arr.forEach(function(colArr, rowIdx) {
+      //function that goes through the column index of the row arrays
+      colArr.forEach(function(cell, colIdx) {
+        newArr.push(React.createElement("div", {
+            id: `c${colIdx}r${rowIdx}`,
+            style: {
+              display: 'block',  
+              width: "90px",
+              height: "90px",
+              backgroundColor:`${colors[cell]}`,
+              margin: "5px",
+              borderRadius: '20px'
+            }
+          }))
+      });
+    });
+    // this.setState({board: newArr});
+    return newArr;
+  };
+
+   componentDidMount(){
+    document.onkeydown = (e) => {
+      let score = this.state.score;
+      let changingBoard = this.state.board.slice();
+      switch (e.keyCode) {
+        case 37: //left
+          {
+            const arrayBefore = JSON.stringify(changingBoard);
+            let movedBoard = this.moves.left(changingBoard, score);
+            //winCheck(movedBoard)
+            let check = JSON.stringify(movedBoard);
+            if (arrayBefore !== check) {
+              //loseCheck
+              this.setState({board: renderUpdate(movedBoard)});
+            }
+            
   //           const sentryArray = JSON.stringify(changingBoard);
   //           let sentryCheck = "";
   //           let tempArray = boardRender(moves.left(changingBoard));
@@ -140,7 +247,7 @@ class GameBoard extends Component {
   //             // loseCheck(board);
   //             renderUpdate(changingBoard);
   //           } else return;
-  //         }
+          };
   //         break;
   //       // case 38: //up
   //       //   {
@@ -184,52 +291,21 @@ class GameBoard extends Component {
   //       //     } else return;
   //       //   }
   //         break;
-  //     }
-  //   };
-  // };
-
-
-    
-
-  boardRender = (arr) => {
-    let newArr = [];
-    console.log('board render' + arr);
-    //function that goes through the board array rows
-    arr.forEach(function(colArr, rowIdx) {
-      //function that goes through the column index of the row arrays
-      colArr.forEach(function(cell, colIdx) {
-        newArr.push(React.createElement("div", {
-            id: `c${colIdx}r${rowIdx}`,
-            style: {
-              display: 'block',  
-              width: "90px",
-              height: "90px",
-              backgroundColor:`${colors[cell]}`,
-              margin: "5px",
-              borderRadius: '20px'
-            }
-          }))
-      });
-    });
-    // this.setState({board: newArr});
-    return newArr;
+      }
+    };
   };
-  clickyFunction = () => {
-    let board = moves.left(this.state.board);
-    board = renderUpdate(board);
-    this.setState({board: board});
-   };
-
 
 
   render() {
 
+
+
+    
     return (
       <div>
         <div className="main">
           <h2>2048 </h2>
-          <button onClick={this.clickyFunction}>Test</button>
-          {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
+                    {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
           <section class="grid">
             <div id='c0r0' style={{backgroundColor: colors[`${this.state.board[0][0]}`]}}></div>
             <div id="c1r0" style={{backgroundColor: colors[`${this.state.board[0][1]}`]}}></div>
