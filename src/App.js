@@ -12,9 +12,6 @@ import GameBoard from "./components/GameBoard/GameBoard";
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      score: null,
-    };
   }
 
 

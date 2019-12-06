@@ -58,29 +58,7 @@ let randomNum = () => {
   //   });
   // }
   
-  //check for lose
-  // function loseCheck(arr) {
-  //   return;
-  //   arr.forEach(function(rowArr) {
-  //     rowArr.forEach(function(isZero) {
-  //       while (isZero != 0)
-  //         if (isZero === 0) {
-  //           return;
-  //         } else {
-  //           let checkBoard = Array.from(this.state.board);
-  //           let checkUp = JSON.stringify(moves.up(checkBoard));
-  //           let checkDown = JSON.stringify(moves.down(checkBoard));
-  //           let checkLeft = JSON.stringify(moves.left(checkBoard));
-  //           let checkRight = JSON.stringify(moves.right(checkBoard));
-  //           if (checkUp === checkDown && checkLeft === checkRight) {
-  //             alert("You lose!");
-  //           } else {
-  //             return;
-  //           }
-  //         }
-  //     });
-  //   });
-  // }
+  // check for lose
 
 let spawnInit = (arr) => {
     let board = arr.slice();
@@ -114,6 +92,29 @@ class GameBoard extends Component {
       score: 0,
     }
   }
+
+  loseCheck(arr) {
+    arr.forEach(function(rowArr) {
+      rowArr.forEach(function(isZero) {
+        while (isZero != 0) 
+          if (isZero === 0) {
+            return;
+          } else {
+            let checkBoard = Array.from(this.state.board);
+            let checkUp = JSON.stringify(this.moves.up(checkBoard));
+            let checkDown = JSON.stringify(this.moves.down(checkBoard));
+            let checkLeft = JSON.stringify(this.moves.left(checkBoard));
+            let checkRight = JSON.stringify(this.arrmoves.right(checkBoard));
+            if (checkUp === checkDown && checkLeft === checkRight) {
+              alert("You lose!");
+            } else {
+              return;
+            }
+          }
+      });
+    });
+  }
+
 
   moves = {
     left: (arr) => {
@@ -225,9 +226,9 @@ class GameBoard extends Component {
             //winCheck(movedBoard)
             let check = JSON.stringify(movedBoard);
             if (arrayBefore !== check) {
-              //loseCheck
               this.setState({board: renderUpdate(movedBoard)});
             }
+            else this.loseCheck(movedBoard);
     };
   };
 
