@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
 import { Route, Switch, Redirect, Link } from "react-router-dom";
-import userService from "./utils/userService";
-import SignupPage from "./pages/SignUpPage/SignUpPage";
-import LoginPage from "./pages/LoginPage/LoginPage";
+import * as scoreAPI from './utils/score-api';
+// import userService from "./utils/userService";
+// import SignupPage from "./pages/SignUpPage/SignUpPage";
+// import LoginPage from "./pages/LoginPage/LoginPage";
 import NavBar from "./components/NavBar/NavBar";
 import GameBoard from "./components/GameBoard/GameBoard";
 
