@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as scoreAPI from '../../utils/score-api';
 // import moves from './Moves';
 import "./GameBoard.css";
 // import board from './Moves';
@@ -83,9 +84,13 @@ class GameBoard extends Component {
     this.state = {
       board: initBoard(),
       score: 0,
-      userName: ""
+      highScoreData: {
+        name: '',
+        highScore: 0
+      }
     };
   }
+
 
   loseCheck = arr => {
     let scoreKeep = this.state.score;
@@ -228,10 +233,26 @@ class GameBoard extends Component {
   };
 
 
+formRef = React.createRef();
 
+handleAddScore = async newScoreData => {
+  const newScore = await scoreAPI.create(newScoreData);
+  this.setState(state => ({
 
-  handlechange = e => {
+  }), () => this.props.history.push('/'));
+}
 
+  handleSubmit = e => {
+    e.preventDefault();
+    this.handleAddScore(this.state.highScoreData);
+  }
+
+  handleChange = e => {
+    const highScoreData = {
+      ...this.state.highScoreData, name: e.target.value, highScore: this.state.score
+    };
+    console.log(highScoreData);
+    this.setState({highScoreData})
   }
 
   componentDidMount() {
@@ -339,11 +360,11 @@ class GameBoard extends Component {
             ></div>
           </section>
           <div>Score: {this.state.score}</div>
-          <div>
+          <form ref={this.formRef} autoComplete='off' onSubmit={this.handleSubmit}>
             <input
               className='high-scores-form'
               type="text"
-              value={this.state.userName}
+              value={this.state.highScoreData.name}
               onChange={this.handleChange}
               required
             />
@@ -351,7 +372,7 @@ class GameBoard extends Component {
               type='submit'
               className='btn'
             >Submit Score</button>
-          </div>
+          </form>
         </div>
       </div>
     );
