@@ -236,10 +236,7 @@ class GameBoard extends Component {
 formRef = React.createRef();
 
 handleAddScore = async newScoreData => {
-  const newScore = await scoreAPI.create(newScoreData);
-  this.setState(state => ({
-
-  }), () => this.props.history.push('/'));
+await scoreAPI.create(newScoreData);
 }
 
   handleSubmit = e => {
@@ -251,8 +248,7 @@ handleAddScore = async newScoreData => {
     const highScoreData = {
       ...this.state.highScoreData, name: e.target.value, highScore: this.state.score
     };
-    console.log(highScoreData);
-    this.setState({highScoreData})
+    this.setState({highScoreData: highScoreData});
   }
 
   componentDidMount() {
