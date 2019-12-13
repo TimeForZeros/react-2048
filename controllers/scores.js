@@ -11,6 +11,6 @@ async function index(req, res) {
 }
 
 async function create(req, res) {
-    const score = await Event.create(req.body);
+    const score = await Score.create(req.body);
     res.status(201).json(score);
 }
