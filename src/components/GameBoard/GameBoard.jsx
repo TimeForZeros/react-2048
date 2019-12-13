@@ -241,11 +241,11 @@ const newScore = await scoreAPI.create(newScoreData);
 this.setState({
   highScoreData: newScore
 });
+console.log(JSON.stringify(newScore));
 }
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log('works');
     this.handleAddScore(this.state.highScoreData);
   }
 
@@ -290,7 +290,6 @@ this.setState({
       <div>
         <div className="main">
           <h2>2048 </h2>
-          <Link to='/api/score'><p>Link to High Scores</p></Link>
           {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
           <section class="grid">
             <div
