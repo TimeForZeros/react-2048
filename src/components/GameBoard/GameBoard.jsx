@@ -82,39 +82,39 @@ class GameBoard extends Component {
     super();
     this.state = {
       board: initBoard(),
-      score: 0
+      score: 0,
+      userName: ""
     };
   }
 
   loseCheck = arr => {
-      let scoreKeep = this.state.score;
-      arr.forEach(row=>{
-        row.forEach(e=>{
-          if (e === 0){
+    let scoreKeep = this.state.score;
+    arr.forEach(row => {
+      row.forEach(e => {
+        if (e === 0) {
           return false;
-          }
-        });
+        }
       });
-      this.moves.up(arr);
-      this.moves.down(arr);
-      this.moves.left(arr);
-      this.moves.right(arr);
-      // let checkUp = JSON.stringify(this.moves.up(arr));
-      // let checkDown = JSON.stringify(this.moves.down(arr));
-      // let checkLeft = JSON.stringify(this.moves.left(arr));
-      // let checkRight = JSON.stringify(this.moves.right(arr));
-      
+    });
+    this.moves.up(arr);
+    this.moves.down(arr);
+    this.moves.left(arr);
+    this.moves.right(arr);
+    // let checkUp = JSON.stringify(this.moves.up(arr));
+    // let checkDown = JSON.stringify(this.moves.down(arr));
+    // let checkLeft = JSON.stringify(this.moves.left(arr));
+    // let checkRight = JSON.stringify(this.moves.right(arr));
+
     if (scoreKeep !== this.state.score) {
       this.setState({ score: scoreKeep });
-      console.log('true');
+      console.log("true");
       return true;
     } else {
       this.setState({ score: scoreKeep });
-      console.log('false');
+      console.log("false");
       return false;
     }
-  }
-
+  };
 
   moves = {
     left: arr => {
@@ -227,31 +227,41 @@ class GameBoard extends Component {
     return newArr;
   };
 
+
+
+
+  handlechange = e => {
+
+  }
+
   componentDidMount() {
-    if (!hasLost){
-    console.log(
-      "This version of the game is dedicated to my love, the 2048 master Kendira"
-    );
-    console.log("I\n Love\n   You\n     Kendi!!!!");
-    document.onkeydown = e => {
-      let changingBoard = this.state.board.slice();
-      const arrayBefore = JSON.stringify(changingBoard);
-      let movedBoard = this.moves[this.keyDirection[e.keyCode]](changingBoard);
-      //winCheck(movedBoard)
-      let check = JSON.stringify(movedBoard);
-      if (arrayBefore !== check) {
-        // if (this.loseCheck(movedBoard)) {
-        //   alert("You lose!");
-        //   hasLost = true;
-        //   console.log(hasLost)
-        //   return
-        // }
-        //   console.log(hasLost);
-          this.setState({ board: renderUpdate(movedBoard) });
-        };
-      }
+    if (!hasLost) {
+      console.log(
+        "This version of the game is dedicated to my love, the 2048 master Kendira"
+      );
+      console.log("I\n Love\n   You\n     Kendi!!!!");
+      document.onkeydown = e => {
+        if (e.keyCode >= 37 && e.keyCode <= 40) {
+        let changingBoard = this.state.board.slice();
+        const arrayBefore = JSON.stringify(changingBoard);
+        let movedBoard = this.moves[this.keyDirection[e.keyCode]](
+          changingBoard
+        );
+        //winCheck(movedBoard)
+        let check = JSON.stringify(movedBoard);
+        if (arrayBefore !== check) {
+          // if (this.loseCheck(movedBoard)) {
+          //   alert("You lose!");
+          //   hasLost = true;
+          //   console.log(hasLost)
+          //   return
+          // }
+          //   console.log(hasLost);
+          this.setState({ board: renderUpdate(movedBoard) });}
+        }
+      };
     }
-    };
+  }
 
   render() {
     return (
@@ -329,6 +339,19 @@ class GameBoard extends Component {
             ></div>
           </section>
           <div>Score: {this.state.score}</div>
+          <div>
+            <input
+              className='high-scores-form'
+              type="text"
+              value={this.state.userName}
+              onChange={this.handleChange}
+              required
+            />
+            <button
+              type='submit'
+              className='btn'
+            >Submit Score</button>
+          </div>
         </div>
       </div>
     );
