@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as scoreAPI from '../../utils/score-api';
+import { Route, Switch, Redirect, Link } from "react-router-dom";
 // import moves from './Moves';
 import "./GameBoard.css";
 // import board from './Moves';
@@ -236,11 +237,15 @@ class GameBoard extends Component {
 formRef = React.createRef();
 
 handleAddScore = async newScoreData => {
-await scoreAPI.create(newScoreData);
+const newScore = await scoreAPI.create(newScoreData);
+this.setState({
+  highScoreData: newScore
+});
 }
 
   handleSubmit = e => {
     e.preventDefault();
+    console.log('works');
     this.handleAddScore(this.state.highScoreData);
   }
 
@@ -285,6 +290,7 @@ await scoreAPI.create(newScoreData);
       <div>
         <div className="main">
           <h2>2048 </h2>
+          <Link to='/api/score'><p>Link to High Scores</p></Link>
           {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
           <section class="grid">
             <div
@@ -356,6 +362,10 @@ await scoreAPI.create(newScoreData);
             ></div>
           </section>
           <div>Score: {this.state.score}</div>
+
+
+          
+          {/* <Route exact path='/api/score'> */}
           <form ref={this.formRef} autoComplete='off' onSubmit={this.handleSubmit}>
             <input
               className='high-scores-form'
@@ -369,6 +379,7 @@ await scoreAPI.create(newScoreData);
               className='btn'
             >Submit Score</button>
           </form>
+          {/* </Route> */}
         </div>
       </div>
     );
