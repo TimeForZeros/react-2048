@@ -286,8 +286,8 @@ class GameBoard extends Component {
         }
       };
     }
-    const leaderBoard = await scoreAPI.getAll().sort({highScore: -1});
-    this.setState({leaderBoard});
+    // const leaderBoard = await scoreAPI.getAll().sort({highScore: -1});
+    // this.setState({leaderBoard});
     
   }
 
@@ -389,7 +389,7 @@ class GameBoard extends Component {
         </div>
 
         <div>
-      {this.state.leaderBoard}
+      {/* {this.state.leaderBoard} */}
         </div>
       </div>
     );
