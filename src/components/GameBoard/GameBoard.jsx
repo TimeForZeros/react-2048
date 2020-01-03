@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import * as scoreAPI from '../../utils/score-api';
+import * as scoreAPI from "../../utils/score-api";
+import * as highScoreAPI from "../../utils/highScore-api";
 import { Route, Switch, Redirect, Link } from "react-router-dom";
 // import moves from './Moves';
 import "./GameBoard.css";
@@ -86,12 +87,11 @@ class GameBoard extends Component {
       board: initBoard(),
       score: 0,
       highScoreData: {
-        name: '',
+        name: "",
         highScore: 0
       }
     };
   }
-
 
   loseCheck = arr => {
     let scoreKeep = this.state.score;
@@ -233,28 +233,29 @@ class GameBoard extends Component {
     return newArr;
   };
 
+  formRef = React.createRef();
 
-formRef = React.createRef();
-
-handleAddScore = async newScoreData => {
-const newScore = await scoreAPI.create(newScoreData);
-this.setState({
-  highScoreData: newScore
-});
-console.log(JSON.stringify(newScore));
-}
+  handleAddScore = async newScoreData => {
+    const newScore = await scoreAPI.create(newScoreData);
+    this.setState({
+      highScoreData: newScore
+    });
+    console.log(JSON.stringify(newScore));
+  };
 
   handleSubmit = e => {
     e.preventDefault();
     this.handleAddScore(this.state.highScoreData);
-  }
+  };
 
   handleChange = e => {
     const highScoreData = {
-      ...this.state.highScoreData, name: e.target.value, highScore: this.state.score
+      ...this.state.highScoreData,
+      name: e.target.value,
+      highScore: this.state.score
     };
-    this.setState({highScoreData: highScoreData});
-  }
+    this.setState({ highScoreData: highScoreData });
+  };
 
   componentDidMount() {
     if (!hasLost) {
@@ -264,22 +265,23 @@ console.log(JSON.stringify(newScore));
       console.log("I\n Love\n   You\n     Kendi!!!!");
       document.onkeydown = e => {
         if (e.keyCode >= 37 && e.keyCode <= 40) {
-        let changingBoard = this.state.board.slice();
-        const arrayBefore = JSON.stringify(changingBoard);
-        let movedBoard = this.moves[this.keyDirection[e.keyCode]](
-          changingBoard
-        );
-        //winCheck(movedBoard)
-        let check = JSON.stringify(movedBoard);
-        if (arrayBefore !== check) {
-          // if (this.loseCheck(movedBoard)) {
-          //   alert("You lose!");
-          //   hasLost = true;
-          //   console.log(hasLost)
-          //   return
-          // }
-          //   console.log(hasLost);
-          this.setState({ board: renderUpdate(movedBoard) });}
+          let changingBoard = this.state.board.slice();
+          const arrayBefore = JSON.stringify(changingBoard);
+          let movedBoard = this.moves[this.keyDirection[e.keyCode]](
+            changingBoard
+          );
+          //winCheck(movedBoard)
+          let check = JSON.stringify(movedBoard);
+          if (arrayBefore !== check) {
+            // if (this.loseCheck(movedBoard)) {
+            //   alert("You lose!");
+            //   hasLost = true;
+            //   console.log(hasLost)
+            //   return
+            // }
+            //   console.log(hasLost);
+            this.setState({ board: renderUpdate(movedBoard) });
+          }
         }
       };
     }
@@ -362,23 +364,28 @@ console.log(JSON.stringify(newScore));
           </section>
           <div>Score: {this.state.score}</div>
 
-
-          
           {/* <Route exact path='/api/score'> */}
-          <form ref={this.formRef} autoComplete='off' onSubmit={this.handleSubmit}>
+          <form
+            ref={this.formRef}
+            autoComplete="off"
+            onSubmit={this.handleSubmit}
+          >
             <input
-              className='high-scores-form'
+              className="high-scores-form"
               type="text"
               value={this.state.highScoreData.name}
               onChange={this.handleChange}
               required
             />
-            <button
-              type='submit'
-              className='btn'
-            >Submit Score</button>
+            <button type="submit" className="btn">
+              Submit Score
+            </button>
           </form>
           {/* </Route> */}
+        </div>
+
+        <div>
+          
         </div>
       </div>
     );
