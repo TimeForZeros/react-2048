@@ -12,6 +12,5 @@ const scoreSchema = new Schema(
   }
 );
 
-scoreSchema.sort({highScore: -1});
 
 module.exports = mongoose.model("Score", scoreSchema);
