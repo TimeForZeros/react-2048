@@ -89,7 +89,8 @@ class GameBoard extends Component {
       highScoreData: {
         name: "",
         highScore: 0
-      }
+      },
+      leaderBoard: []
     };
   }
 
@@ -257,7 +258,7 @@ class GameBoard extends Component {
     this.setState({ highScoreData: highScoreData });
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     if (!hasLost) {
       console.log(
         "This version of the game is dedicated to my love, the 2048 master Kendira"
@@ -285,6 +286,9 @@ class GameBoard extends Component {
         }
       };
     }
+    const leaderBoard = await scoreAPI.getAll().sort({highScore: -1});
+    this.setState({leaderBoard});
+    
   }
 
   render() {
@@ -385,7 +389,7 @@ class GameBoard extends Component {
         </div>
 
         <div>
-          
+      {this.state.leaderBoard}
         </div>
       </div>
     );
