@@ -395,7 +395,7 @@ class GameBoard extends Component {
             </button>
           </form>
           {/* </Route> */}
-       <h2>Leaderboard</h2>
+       <h3>Leaderboard</h3>
         </div>
 <table>{leaderBoard}</table>
       </div>

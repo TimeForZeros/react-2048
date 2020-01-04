@@ -19,7 +19,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <NavBar />
+          {/* <NavBar /> */}
         </header>
         <main className="container">
             <Route exact path="/" render={({ history }) => <GameBoard />} />
