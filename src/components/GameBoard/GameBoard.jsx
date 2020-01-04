@@ -286,18 +286,27 @@ class GameBoard extends Component {
         }
       };
     }
-    const leaderBoard = await scoreAPI.index().sort({highScore: -1});
+    // let leaderBoard = 'await scoreAPI.index()';
+    let leaderBoard = await scoreAPI.index();
     this.setState({leaderBoard});
+    // const leaderBoard = await scoreAPI.index();
+    // leaderArr.push(leaderBoard);
     
   }
-
+  
   render() {
+    const leaderBoard = this.state.leaderBoard.map((e, i) => 
+      <tr key={i}>
+        <td>{e.name}</td> <td>{e.highScore}</td>
+        </tr>
+    );
+    
     return (
       <div>
         <div className="main">
           <h2>2048 </h2>
           {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
-          <section class="grid">
+          <section className="grid">
             <div
               id="c0r0"
               style={{ backgroundColor: colors[`${this.state.board[0][0]}`] }}
@@ -386,11 +395,9 @@ class GameBoard extends Component {
             </button>
           </form>
           {/* </Route> */}
+       <h2>Leaderboard</h2>
         </div>
-
-        <div>
-      {this.state.leaderBoard}
-        </div>
+<table>{leaderBoard}</table>
       </div>
     );
   }

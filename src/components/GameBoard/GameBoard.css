@@ -2,7 +2,7 @@
 body {
     height: 100vh;
     display: grid;
-    grid-template-columns: 2fr 2fr 5fr 3fr 2fr;
+    /* grid-template-columns: 2fr 2fr 5fr 3fr 2fr; */
     font-family: 'PT Mono', monospace;
     grid-template-rows: 95vh 40px;
     background-color: rgb(199, 223, 247);

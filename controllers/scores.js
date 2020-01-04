@@ -6,7 +6,7 @@ module.exports = {
 };
 
 async function index(req, res) {
-    const score = await Score.find({});
+    const score = await Score.find({}).sort({highScore: -1}).limit(10);
     res.status(200).json(score);
 }
 
