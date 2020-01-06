@@ -63,6 +63,11 @@ h2 {
 .links {
   font-size: 3vmin;
   padding: calc(10px + 2vmin);
+  text-decoration: none;
+  color: white;
+}
+.links:hover {
+  text-decoration: underline;
 }
 .links-container {
   display: flex;

@@ -3,7 +3,11 @@ import * as scoreAPI from "../../utils/score-api";
 import * as highScoreAPI from "../../utils/highScore-api";
 import {
   BrowserRouter as Router,
-  Route, Switch, Redirect, Link } from "react-router-dom";
+  Route,
+  Switch,
+  Redirect,
+  Link
+} from "react-router-dom";
 // import moves from './Moves';
 import "./GameBoard.css";
 // import board from './Moves';
@@ -46,17 +50,6 @@ let renderUpdate = boardUpdate => {
   return boardUpdate;
 };
 
-// //check for win
-// function winCheck(arr) {
-//   arr.forEach(function(rowArr) {
-//     rowArr.forEach(function(winNumber) {
-//       if (winNumber === 2048) {
-//         alert("YOU WIN!!!!");
-//       }
-//     });
-//   });
-// }
-
 // check for lose
 
 let spawnInit = arr => {
@@ -97,32 +90,39 @@ class GameBoard extends Component {
   }
 
   loseCheck = arr => {
-    let scoreKeep = this.state.score;
+    let zeros = 0;
+    let counter = 0;
     arr.forEach(row => {
-      row.forEach(e => {
-        if (e === 0) {
-          return false;
-        }
-      });
+      // if (zeros > 0) {
+      //   return zeros;
+      // }
+        row.forEach(e => {
+          if (e === 0) {
+            zeros++;
+          }
+        });
     });
-    this.moves.up(arr);
-    this.moves.down(arr);
-    this.moves.left(arr);
-    this.moves.right(arr);
-    // let checkUp = JSON.stringify(this.moves.up(arr));
-    // let checkDown = JSON.stringify(this.moves.down(arr));
-    // let checkLeft = JSON.stringify(this.moves.left(arr));
-    // let checkRight = JSON.stringify(this.moves.right(arr));
-
-    if (scoreKeep !== this.state.score) {
-      this.setState({ score: scoreKeep });
+    console.log(zeros);
+    if (zeros === 0) {
+      console.log('now!!!!')
+    let scoreKeep = this.state.score;
+    let movesArr = ["up", "down", "left", "right"];
+    movesArr.forEach(e => {
+      console.log(this.state.score);
+      this.moves[`${e}`](arr);
+      console.log(this.state.score + e);
+      if (scoreKeep === this.state.score) {
+        this.setState({ score: scoreKeep });
+        console.log(counter + "counter");
+        counter++;
+      }
+    });
+    if (counter === 4) {
+      // this.setState({ score: scoreKeep });
       console.log("true");
       return true;
-    } else {
-      this.setState({ score: scoreKeep });
-      console.log("false");
-      return false;
-    }
+    } else return false;
+  } else return false
   };
 
   moves = {
@@ -243,13 +243,12 @@ class GameBoard extends Component {
     this.setState({
       highScoreData: newScore
     });
-    console.log(JSON.stringify(newScore));
   };
 
   handleSubmit = e => {
     e.preventDefault();
     this.handleAddScore(this.state.highScoreData);
-    return <Redirect to="leaderboard" />;
+    return <Redirect to="/leaderboard" />;
   };
 
   handleChange = e => {
@@ -274,22 +273,19 @@ class GameBoard extends Component {
           let movedBoard = this.moves[this.keyDirection[e.keyCode]](
             changingBoard
           );
-          //winCheck(movedBoard)
           let check = JSON.stringify(movedBoard);
+          //the if statement checks if a move can be made, otherwise nothing happens
           if (arrayBefore !== check) {
-            // if (this.loseCheck(movedBoard)) {
-            //   alert("You lose!");
-            //   hasLost = true;
-            //   console.log(hasLost)
-            //   return
-            // }
-            //   console.log(hasLost);
+
             this.setState({ board: renderUpdate(movedBoard) });
+
+            if (this.loseCheck(movedBoard)) {
+              return hasLost = true; ;
+            }
           }
         }
       };
     }
-    // let leaderBoard = 'await scoreAPI.index()';
     let leaderBoard = await scoreAPI.index();
     this.setState({ leaderBoard });
     // const leaderBoard = await scoreAPI.index();
@@ -305,98 +301,99 @@ class GameBoard extends Component {
 
     return (
       <div>
-          <Route path='/game'>
-        <div className="main">
-          {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
-          <section className="grid">
-            <div
-              id="c0r0"
-              style={{ backgroundColor: colors[`${this.state.board[0][0]}`] }}
-            ></div>
-            <div
-              id="c1r0"
-              style={{ backgroundColor: colors[`${this.state.board[0][1]}`] }}
-            ></div>
-            <div
-              id="c2r0"
-              style={{ backgroundColor: colors[`${this.state.board[0][2]}`] }}
-            ></div>
-            <div
-              id="c3r0"
-              style={{ backgroundColor: colors[`${this.state.board[0][3]}`] }}
-            ></div>
+        <Route path="/game">
+          <div className="main">
+            {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
+            <section className="grid">
+              <div
+                id="c0r0"
+                style={{ backgroundColor: colors[`${this.state.board[0][0]}`] }}
+              ></div>
+              <div
+                id="c1r0"
+                style={{ backgroundColor: colors[`${this.state.board[0][1]}`] }}
+              ></div>
+              <div
+                id="c2r0"
+                style={{ backgroundColor: colors[`${this.state.board[0][2]}`] }}
+              ></div>
+              <div
+                id="c3r0"
+                style={{ backgroundColor: colors[`${this.state.board[0][3]}`] }}
+              ></div>
 
-            <div
-              id="c0r1"
-              style={{ backgroundColor: colors[`${this.state.board[1][0]}`] }}
-            ></div>
-            <div
-              id="c1r1"
-              style={{ backgroundColor: colors[`${this.state.board[1][1]}`] }}
-            ></div>
-            <div
-              id="c2r1"
-              style={{ backgroundColor: colors[`${this.state.board[1][2]}`] }}
-            ></div>
-            <div
-              id="c3r1"
-              style={{ backgroundColor: colors[`${this.state.board[1][3]}`] }}
-            ></div>
+              <div
+                id="c0r1"
+                style={{ backgroundColor: colors[`${this.state.board[1][0]}`] }}
+              ></div>
+              <div
+                id="c1r1"
+                style={{ backgroundColor: colors[`${this.state.board[1][1]}`] }}
+              ></div>
+              <div
+                id="c2r1"
+                style={{ backgroundColor: colors[`${this.state.board[1][2]}`] }}
+              ></div>
+              <div
+                id="c3r1"
+                style={{ backgroundColor: colors[`${this.state.board[1][3]}`] }}
+              ></div>
 
-            <div
-              id="c0r2"
-              style={{ backgroundColor: colors[`${this.state.board[2][0]}`] }}
-            ></div>
-            <div
-              id="c1r2"
-              style={{ backgroundColor: colors[`${this.state.board[2][1]}`] }}
-            ></div>
-            <div
-              id="c2r2"
-              style={{ backgroundColor: colors[`${this.state.board[2][2]}`] }}
-            ></div>
-            <div
-              id="c3r2"
-              style={{ backgroundColor: colors[`${this.state.board[2][3]}`] }}
-            ></div>
+              <div
+                id="c0r2"
+                style={{ backgroundColor: colors[`${this.state.board[2][0]}`] }}
+              ></div>
+              <div
+                id="c1r2"
+                style={{ backgroundColor: colors[`${this.state.board[2][1]}`] }}
+              ></div>
+              <div
+                id="c2r2"
+                style={{ backgroundColor: colors[`${this.state.board[2][2]}`] }}
+              ></div>
+              <div
+                id="c3r2"
+                style={{ backgroundColor: colors[`${this.state.board[2][3]}`] }}
+              ></div>
 
-            <div
-              id="c0r3"
-              style={{ backgroundColor: colors[`${this.state.board[3][0]}`] }}
-            ></div>
-            <div
-              id="c1r3"
-              style={{ backgroundColor: colors[`${this.state.board[3][1]}`] }}
-            ></div>
-            <div
-              id="c2r3"
-              style={{ backgroundColor: colors[`${this.state.board[3][2]}`] }}
-            ></div>
-            <div
-              id="c3r3"
-              style={{ backgroundColor: colors[`${this.state.board[3][3]}`] }}
-            ></div>
-          </section>
-          <div>Score: {this.state.score}</div>
-
-
-          <form
-            ref={this.formRef}
-            autoComplete="off"
-            onSubmit={this.handleSubmit, <Redirect to='leaderboard' />}
-          >
-            <input
-              className="high-scores-form"
-              type="text"
-              value={this.state.highScoreData.name}
-              onChange={this.handleChange}
-              required
-            />
-            <button type="submit" className="btn">
-              Submit Score
-            </button>
-          </form>
-        </div>
+              <div
+                id="c0r3"
+                style={{ backgroundColor: colors[`${this.state.board[3][0]}`] }}
+              ></div>
+              <div
+                id="c1r3"
+                style={{ backgroundColor: colors[`${this.state.board[3][1]}`] }}
+              ></div>
+              <div
+                id="c2r3"
+                style={{ backgroundColor: colors[`${this.state.board[3][2]}`] }}
+              ></div>
+              <div
+                id="c3r3"
+                style={{ backgroundColor: colors[`${this.state.board[3][3]}`] }}
+              ></div>
+            </section>
+            <div>Score: {this.state.score}</div>
+            <section className="score-container" display="false">
+              <form
+                ref={this.formRef}
+                autoComplete="off"
+                onSubmit={this.handleSubmit}
+                hidden={!hasLost}
+              >
+                <input
+                  className="high-scores-form"
+                  type="text"
+                  value={this.state.highScoreData.name}
+                  onChange={this.handleChange}
+                  required
+                />
+                <button type="submit" className="btn">
+                  Submit Score
+                </button>
+              </form>
+            </section>
+          </div>
         </Route>
         <Route path="/leaderboard">
           <h3>Leaderboard</h3>
@@ -406,6 +403,5 @@ class GameBoard extends Component {
     );
   }
 }
-
 
 export default GameBoard;
