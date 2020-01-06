@@ -10,21 +10,16 @@ body {
     grid-gap: 15px;
     color: rgb(14, 46, 78);
 }
+
+
+
 .main {
     grid-row: 1;
     grid-column: 3;
     display: subgrid;
     grid-template-columns: 2fr 4fr 2fr;
 }
-h2 {
-     grid-column: 1;
-     grid-row: 1;
-     text-align: center;
-     font-size: 60px;
-     letter-spacing: 75px;
-     width: 400px;
-     padding-left: 12.5px;   
-}
+
 
 h3 {
     margin-top: 105px;

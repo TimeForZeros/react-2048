@@ -1,10 +1,9 @@
 .App {
   text-align: center;
   justify-content: center;
-  align-items: center;
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 100vw;
   height: 100vh;
 }
 
@@ -13,14 +12,21 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 10vh;
+  background-color: rgb(23, 27, 32);
+  min-height: 5vh;
+  max-height: 10vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: flex-start;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   font-size: calc(10px + 2vmin);
   color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 1;
+  
 }
 
 .App-link {
@@ -29,8 +35,36 @@
 
 
 .container {
-/* margin: auto; */
+padding-top: 5vmin;
+margin-left: auto;
+margin-right: auto;
 
 
   
+}
+
+h2 {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: center;
+  font-size: 5vmin;
+  letter-spacing: 75px;
+  width: 400px;
+  margin-right: auto;
+
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.links {
+  font-size: 3vmin;
+  padding: calc(10px + 2vmin);
+}
+.links-container {
+  display: flex;
+  flex-direction: flex-end;
 }

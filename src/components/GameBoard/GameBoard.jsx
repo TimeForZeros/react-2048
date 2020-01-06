@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import * as scoreAPI from "../../utils/score-api";
 import * as highScoreAPI from "../../utils/highScore-api";
-import { Route, Switch, Redirect, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route, Switch, Redirect, Link } from "react-router-dom";
 // import moves from './Moves';
 import "./GameBoard.css";
 // import board from './Moves';
@@ -247,6 +249,7 @@ class GameBoard extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.handleAddScore(this.state.highScoreData);
+    return <Redirect to="leaderboard" />;
   };
 
   handleChange = e => {
@@ -288,23 +291,22 @@ class GameBoard extends Component {
     }
     // let leaderBoard = 'await scoreAPI.index()';
     let leaderBoard = await scoreAPI.index();
-    this.setState({leaderBoard});
+    this.setState({ leaderBoard });
     // const leaderBoard = await scoreAPI.index();
     // leaderArr.push(leaderBoard);
-    
   }
-  
+
   render() {
-    const leaderBoard = this.state.leaderBoard.map((e, i) => 
+    const leaderBoard = this.state.leaderBoard.map((e, i) => (
       <tr key={i}>
         <td>{e.name}</td> <td>{e.highScore}</td>
-        </tr>
-    );
-    
+      </tr>
+    ));
+
     return (
       <div>
+          <Route path='/game'>
         <div className="main">
-          <h2>2048 </h2>
           {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
           <section className="grid">
             <div
@@ -377,11 +379,11 @@ class GameBoard extends Component {
           </section>
           <div>Score: {this.state.score}</div>
 
-          {/* <Route exact path='/api/score'> */}
+
           <form
             ref={this.formRef}
             autoComplete="off"
-            onSubmit={this.handleSubmit}
+            onSubmit={this.handleSubmit, <Redirect to='leaderboard' />}
           >
             <input
               className="high-scores-form"
@@ -394,13 +396,16 @@ class GameBoard extends Component {
               Submit Score
             </button>
           </form>
-          {/* </Route> */}
-       <h3>Leaderboard</h3>
         </div>
-<table>{leaderBoard}</table>
+        </Route>
+        <Route path="/leaderboard">
+          <h3>Leaderboard</h3>
+          <table>{leaderBoard}</table>
+        </Route>
       </div>
     );
   }
 }
+
 
 export default GameBoard;
