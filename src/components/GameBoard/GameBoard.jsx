@@ -95,33 +95,33 @@ class GameBoard extends Component {
       // if (zeros > 0) {
       //   return zeros;
       // }
-        row.forEach(e => {
-          if (e === 0) {
-            zeros++;
-          }
-        });
+      row.forEach(e => {
+        if (e === 0) {
+          zeros++;
+        }
+      });
     });
     console.log(zeros);
     if (zeros === 0) {
-      console.log('now!!!!')
-    let scoreKeep = this.state.score;
-    let movesArr = ["up", "down", "left", "right"];
-    movesArr.forEach(e => {
-      console.log(this.state.score);
-      this.moves[`${e}`](arr);
-      console.log(this.state.score + e);
-      if (scoreKeep === this.state.score) {
-        this.setState({ score: scoreKeep });
-        console.log(counter + "counter");
-        counter++;
-      }
-    });
-    if (counter === 4) {
-      // this.setState({ score: scoreKeep });
-      console.log("true");
-      return true;
+      console.log("now!!!!");
+      let scoreKeep = this.state.score;
+      let movesArr = ["up", "down", "left", "right"];
+      movesArr.forEach(e => {
+        console.log(this.state.score);
+        this.moves[`${e}`](arr);
+        console.log(this.state.score + e);
+        if (scoreKeep === this.state.score) {
+          this.setState({ score: scoreKeep });
+          console.log(counter + "counter");
+          counter++;
+        }
+      });
+      if (counter === 4) {
+        // this.setState({ score: scoreKeep });
+        console.log("true");
+        return true;
+      } else return false;
     } else return false;
-  } else return false
   };
 
   moves = {
@@ -275,11 +275,10 @@ class GameBoard extends Component {
           let check = JSON.stringify(movedBoard);
           //the if statement checks if a move can be made, otherwise nothing happens
           if (arrayBefore !== check) {
-
             this.setState({ board: renderUpdate(movedBoard) });
 
             if (this.loseCheck(movedBoard)) {
-              return this.setState({hasLost: true}); 
+              return this.setState({ hasLost: true });
             }
           }
         }
@@ -303,7 +302,10 @@ class GameBoard extends Component {
         <Route path="/game">
           <div className="main">
             {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
-            <section className="grid">
+            <section >
+
+            </section>
+            <section className={`grid-${!this.state.hasLost}`}>
               <div
                 id="c0r0"
                 style={{ backgroundColor: colors[`${this.state.board[0][0]}`] }}
@@ -372,8 +374,12 @@ class GameBoard extends Component {
                 style={{ backgroundColor: colors[`${this.state.board[3][3]}`] }}
               ></div>
             </section>
-            <div>Score: {this.state.score}</div>
-            <section className="score-container" display="false">
+            <div className='score-value'>Score: {this.state.score}</div>
+            <section
+              className="score-container"
+              display="false"  
+            >
+            <h4 className='lose-message' hidden={!this.state.hasLost}> You Have Lost!</h4>
               <form
                 ref={this.formRef}
                 autoComplete="off"

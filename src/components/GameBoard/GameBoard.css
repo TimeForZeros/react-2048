@@ -29,7 +29,7 @@ h3 {
     font-size: 40px;
     justify-content: center;
 }
-.grid {
+.grid-false {
 
     background-color: rgb(93, 100, 109);
     border-radius: 20px;
@@ -40,13 +40,36 @@ h3 {
     grid-row: 2;
     justify-content: center;
     align-content: center;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    opacity: 50%;
+    
+}
 
+.grid-true {
+
+    background-color: rgb(93, 100, 109);
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 0px;
+    height: 400px;
+    width: 400px;
+    grid-row: 2;
+    justify-content: center;
+    align-content: center;
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 
-.grid div{
+
+.grid-true div{
+    border-radius: 20px;
+    margin: 5px;
+}
+
+.grid-false div{
     border-radius: 20px;
     margin: 5px;
 }
@@ -60,6 +83,11 @@ h3 {
     grid-column: 4;
     justify-content: left;
 
+}
+
+.score-value {
+    font-size: 4vh;
+    color: rgb(66, 92, 122);
 }
 .d-pad {
     display: grid;
@@ -102,8 +130,12 @@ h3 {
 }
 .score-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    width: 100%;
 }
+
+
 
 footer {
     grid-row: 2;
@@ -117,4 +149,15 @@ justify-content: flex-end;
 height: 30px;
 line-height: 30px;
 margin-right: 15px;
+}
+
+.lose-message {
+    font-size: 5vh;
+    color: rgb(66, 92, 122);
+}
+
+input {
+    border-color: rgb(115, 138, 163);
+    color: rgb(66, 92, 122);
+    background-color: rgb(224, 235, 247);
 }
