@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {useSwipeable, Swipeable} from 'react-swipeable';
+import { useSwipeable, Swipeable } from "react-swipeable";
 import * as scoreAPI from "../../utils/score-api";
 import * as highScoreAPI from "../../utils/highScore-api";
 import {
@@ -12,7 +12,6 @@ import {
 // import moves from './Moves';
 import "./GameBoard.css";
 // import board from './Moves';
-
 
 const colors = {
   "0": "rgb(239, 244, 250)",
@@ -294,8 +293,13 @@ class GameBoard extends Component {
 
   render() {
     const leaderBoard = this.state.leaderBoard.map((e, i) => (
-      <tr key={i} >
-        <td style={{textAlign: 'right', fontSize: '4vh', paddingRight: '1vw'}}>{e.name}</td> <td  style={{textAlign: 'left', fontSize: '4vh'}}>{e.highScore}</td>
+      <tr key={i}>
+        <td
+          style={{ textAlign: "right", fontSize: "4vh", paddingRight: "1vw" }}
+        >
+          {e.name}
+        </td>{" "}
+        <td style={{ textAlign: "left", fontSize: "4vh" }}>{e.highScore}</td>
       </tr>
     ));
 
@@ -304,86 +308,133 @@ class GameBoard extends Component {
         <Route path="/game">
           <div className="main">
             {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
-            <section >
+            <section></section>
+            <Swipeable
+              onSwiped={e => {
+                let changingBoard = this.state.board.slice();
+                const arrayBefore = JSON.stringify(changingBoard);
+                let movedBoard = this.moves[e.dir.toLowerCase()](
+                  changingBoard
+                );
+                let check = JSON.stringify(movedBoard);
+                //the if statement checks if a move can be made, otherwise nothing happens
+                if (arrayBefore !== check) {
+                  this.setState({ board: renderUpdate(movedBoard) });
 
-            </section>
-            <Swipeable onSwiped={(e) =>{console.log(e)}}>
-            <section className={`grid-${!this.state.hasLost}`}>
-              <div
-                id="c0r0"
-                style={{ backgroundColor: colors[`${this.state.board[0][0]}`] }}
-              ></div>
-              <div
-                id="c1r0"
-                style={{ backgroundColor: colors[`${this.state.board[0][1]}`] }}
-              ></div>
-              <div
-                id="c2r0"
-                style={{ backgroundColor: colors[`${this.state.board[0][2]}`] }}
-              ></div>
-              <div
-                id="c3r0"
-                style={{ backgroundColor: colors[`${this.state.board[0][3]}`] }}
-              ></div>
-
-              <div
-                id="c0r1"
-                style={{ backgroundColor: colors[`${this.state.board[1][0]}`] }}
-              ></div>
-              <div
-                id="c1r1"
-                style={{ backgroundColor: colors[`${this.state.board[1][1]}`] }}
-              ></div>
-              <div
-                id="c2r1"
-                style={{ backgroundColor: colors[`${this.state.board[1][2]}`] }}
-              ></div>
-              <div
-                id="c3r1"
-                style={{ backgroundColor: colors[`${this.state.board[1][3]}`] }}
-              ></div>
-
-              <div
-                id="c0r2"
-                style={{ backgroundColor: colors[`${this.state.board[2][0]}`] }}
-              ></div>
-              <div
-                id="c1r2"
-                style={{ backgroundColor: colors[`${this.state.board[2][1]}`] }}
-              ></div>
-              <div
-                id="c2r2"
-                style={{ backgroundColor: colors[`${this.state.board[2][2]}`] }}
-              ></div>
-              <div
-                id="c3r2"
-                style={{ backgroundColor: colors[`${this.state.board[2][3]}`] }}
-              ></div>
-
-              <div
-                id="c0r3"
-                style={{ backgroundColor: colors[`${this.state.board[3][0]}`] }}
-              ></div>
-              <div
-                id="c1r3"
-                style={{ backgroundColor: colors[`${this.state.board[3][1]}`] }}
-              ></div>
-              <div
-                id="c2r3"
-                style={{ backgroundColor: colors[`${this.state.board[3][2]}`] }}
-              ></div>
-              <div
-                id="c3r3"
-                style={{ backgroundColor: colors[`${this.state.board[3][3]}`] }}
-              ></div>
-            </section>
-            </Swipeable>
-            <div className='score-value'>Score: {this.state.score}</div>
-            <section
-              className="score-container"
-              display="false"  
+                  if (this.loseCheck(movedBoard)) {
+                    return this.setState({ hasLost: true });
+                  }
+                }
+              }}
             >
-            <h4 className='lose-message' hidden={!this.state.hasLost}> You Have Lost!</h4>
+              <section className={`grid-${!this.state.hasLost}`}>
+                <div
+                  id="c0r0"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[0][0]}`]
+                  }}
+                ></div>
+                <div
+                  id="c1r0"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[0][1]}`]
+                  }}
+                ></div>
+                <div
+                  id="c2r0"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[0][2]}`]
+                  }}
+                ></div>
+                <div
+                  id="c3r0"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[0][3]}`]
+                  }}
+                ></div>
+
+                <div
+                  id="c0r1"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[1][0]}`]
+                  }}
+                ></div>
+                <div
+                  id="c1r1"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[1][1]}`]
+                  }}
+                ></div>
+                <div
+                  id="c2r1"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[1][2]}`]
+                  }}
+                ></div>
+                <div
+                  id="c3r1"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[1][3]}`]
+                  }}
+                ></div>
+
+                <div
+                  id="c0r2"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[2][0]}`]
+                  }}
+                ></div>
+                <div
+                  id="c1r2"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[2][1]}`]
+                  }}
+                ></div>
+                <div
+                  id="c2r2"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[2][2]}`]
+                  }}
+                ></div>
+                <div
+                  id="c3r2"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[2][3]}`]
+                  }}
+                ></div>
+
+                <div
+                  id="c0r3"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[3][0]}`]
+                  }}
+                ></div>
+                <div
+                  id="c1r3"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[3][1]}`]
+                  }}
+                ></div>
+                <div
+                  id="c2r3"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[3][2]}`]
+                  }}
+                ></div>
+                <div
+                  id="c3r3"
+                  style={{
+                    backgroundColor: colors[`${this.state.board[3][3]}`]
+                  }}
+                ></div>
+              </section>
+            </Swipeable>
+            <div className="score-value">Score: {this.state.score}</div>
+            <section className="score-container" display="false">
+              <h4 className="lose-message" hidden={!this.state.hasLost}>
+                {" "}
+                You Have Lost!
+              </h4>
               <form
                 ref={this.formRef}
                 autoComplete="off"
@@ -405,8 +456,8 @@ class GameBoard extends Component {
           </div>
         </Route>
         <Route path="/leaderboard">
-          <h3 >Leaderboard</h3>
-          <table >{leaderBoard}</table>
+          <h3>Leaderboard</h3>
+          <table>{leaderBoard}</table>
         </Route>
       </div>
     );
