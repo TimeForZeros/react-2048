@@ -43,7 +43,8 @@ h3 {
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
-    opacity: 50%;
+    opacity: 75%;
+    z-index: 0.5;
     
 }
 
