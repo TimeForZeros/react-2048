@@ -27,8 +27,6 @@ const colors = {
   "2048": "#962425"
 };
 
-let hasLost = false;
-
 let randomNum = () => {
   return Math.floor(Math.random() * 4);
 };
@@ -85,7 +83,8 @@ class GameBoard extends Component {
         name: "",
         highScore: 0
       },
-      leaderBoard: []
+      leaderBoard: [],
+      hasLost: false
     };
   }
 
@@ -261,7 +260,7 @@ class GameBoard extends Component {
   };
 
   async componentDidMount() {
-    if (!hasLost) {
+    if (!this.state.hasLost) {
       console.log(
         "This version of the game is dedicated to my love, the 2048 master Kendira"
       );
@@ -280,7 +279,7 @@ class GameBoard extends Component {
             this.setState({ board: renderUpdate(movedBoard) });
 
             if (this.loseCheck(movedBoard)) {
-              return hasLost = true; ;
+              return this.setState({hasLost: true}); 
             }
           }
         }
@@ -379,7 +378,7 @@ class GameBoard extends Component {
                 ref={this.formRef}
                 autoComplete="off"
                 onSubmit={this.handleSubmit}
-                hidden={!hasLost}
+                hidden={!this.state.hasLost}
               >
                 <input
                   className="high-scores-form"
