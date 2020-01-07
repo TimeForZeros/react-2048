@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {useSwipeable, Swipeable} from 'react-swipeable';
 import * as scoreAPI from "../../utils/score-api";
 import * as highScoreAPI from "../../utils/highScore-api";
 import {
@@ -11,6 +12,7 @@ import {
 // import moves from './Moves';
 import "./GameBoard.css";
 // import board from './Moves';
+
 
 const colors = {
   "0": "rgb(239, 244, 250)",
@@ -305,6 +307,7 @@ class GameBoard extends Component {
             <section >
 
             </section>
+            <Swipeable onSwiped={(e) =>{console.log(e)}}>
             <section className={`grid-${!this.state.hasLost}`}>
               <div
                 id="c0r0"
@@ -374,6 +377,7 @@ class GameBoard extends Component {
                 style={{ backgroundColor: colors[`${this.state.board[3][3]}`] }}
               ></div>
             </section>
+            </Swipeable>
             <div className='score-value'>Score: {this.state.score}</div>
             <section
               className="score-container"
