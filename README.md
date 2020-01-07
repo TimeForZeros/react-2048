@@ -11,14 +11,14 @@ This version of 2048 is built with React from a previous vanilla JS build I made
 #### Single Page Application
 Resources are dynamically loaded when needed.
 
-### Leaderboard
+#### Leaderboard
 This version of the game is connected to MongoDB database to post and retrieve scores.
 The top 10 scores can be seen on the leaderboards page.
 
-### Swipe Functionality
+#### Swipe Functionality
 For mobile users, swipe functionality has been added so the game can be played by swiping a direction (Up, Down, Left, Right) and the tiles sliding in that direction.
 
-### Features in Progress
+#### Features in Progress
 
 General styling and including media queries for a more mobile-friendly experience.
 
