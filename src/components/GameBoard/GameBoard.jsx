@@ -292,8 +292,8 @@ class GameBoard extends Component {
 
   render() {
     const leaderBoard = this.state.leaderBoard.map((e, i) => (
-      <tr key={i}>
-        <td>{e.name}</td> <td>{e.highScore}</td>
+      <tr key={i} >
+        <td style={{textAlign: 'right', fontSize: '4vh', paddingRight: '1vw'}}>{e.name}</td> <td  style={{textAlign: 'left', fontSize: '4vh'}}>{e.highScore}</td>
       </tr>
     ));
 
@@ -401,8 +401,8 @@ class GameBoard extends Component {
           </div>
         </Route>
         <Route path="/leaderboard">
-          <h3>Leaderboard</h3>
-          <table>{leaderBoard}</table>
+          <h3 >Leaderboard</h3>
+          <table >{leaderBoard}</table>
         </Route>
       </div>
     );

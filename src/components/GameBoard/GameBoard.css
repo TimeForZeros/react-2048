@@ -160,3 +160,14 @@ input {
     color: rgb(66, 92, 122);
     background-color: rgb(224, 235, 247);
 }
+
+.leaderboard-name {
+    font-size: 10vh;
+    justify-content: right;
+}
+
+.leaderboard-score {
+    font-size: 10vh;
+    justify-content: left;
+
+}
