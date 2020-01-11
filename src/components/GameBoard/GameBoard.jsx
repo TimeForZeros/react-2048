@@ -75,8 +75,8 @@ let initBoard = () => {
 };
 
 class GameBoard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       board: initBoard(),
       score: 0,
@@ -85,7 +85,7 @@ class GameBoard extends Component {
         highScore: 0
       },
       leaderBoard: [],
-      hasLost: false
+      hasLost: false,
     };
   }
 
@@ -260,8 +260,11 @@ class GameBoard extends Component {
     this.setState({ highScoreData: highScoreData });
   };
 
+
   async componentDidMount() {
     if (!this.state.hasLost) {
+      console.log(this.state.url);
+      console.log(window.location.href);
       console.log(
         "This version of the game is dedicated to my love, the 2048 master Kendira"
       );
@@ -305,10 +308,8 @@ class GameBoard extends Component {
 
     return (
       <div>
-        <Route path="/game">
-          <div className="main">
+          <div className="main" hidden={ `${this.props.oldURL}leaderboard` === this.props.currentURL} >
             {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
-            <section></section>
             <Swipeable
               onSwiped={e => {
                 let changingBoard = this.state.board.slice();
@@ -454,8 +455,7 @@ class GameBoard extends Component {
               </form>
             </section>
           </div>
-        </Route>
-        <Route path="/leaderboard">
+        <Route path="/leaderboard" >
           <h3>Leaderboard</h3>
           <table>{leaderBoard}</table>
         </Route>
