@@ -19,7 +19,7 @@
   color: white;
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
   overflow: hidden;
   z-index: 1;
 }
