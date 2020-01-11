@@ -132,6 +132,7 @@ h2 {
     background-color: rgb(199, 223, 247);
     grid-gap: 15px;
     color: rgb(14, 46, 78);
+    overflow: hidden;
 }
 
 .grid-true {
