@@ -15,10 +15,10 @@ Resources are dynamically loaded when needed.
 This version of the game is connected to MongoDB database to post and retrieve scores.
 The top 10 scores can be seen on the leaderboards page.
 
-#### Swipe Functionality
+#### Mobile Friendly
+##### Swipe Functionality
 For mobile users, swipe functionality has been added so the game can be played by swiping a direction (Up, Down, Left, Right) and the tiles sliding in that direction.
 
-#### Features in Progress
-
-General styling and including media queries for a more mobile-friendly experience.
+##### Media Query
+Styling for different mobile devices
 
