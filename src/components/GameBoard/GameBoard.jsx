@@ -75,8 +75,8 @@ let initBoard = () => {
 };
 
 class GameBoard extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       board: initBoard(),
       score: 0,
@@ -248,7 +248,7 @@ class GameBoard extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.handleAddScore(this.state.highScoreData);
-    return <Redirect to="/leaderboard" />;
+    this.props.history.push('/leaderboard');
   };
 
   handleChange = e => {
@@ -308,7 +308,7 @@ class GameBoard extends Component {
 
     return (
       <div>
-          <div className="main" hidden={ `${this.props.oldURL}leaderboard` === this.props.currentURL} >
+          <div className="main" hidden={this.props.history.location.pathname === '/leaderboard'} >
             {/* <section className='grid'> {this.boardRender(this.state.board)}</section> */}
             <Swipeable
               onSwiped={e => {
@@ -328,7 +328,8 @@ class GameBoard extends Component {
                 }
               }}
             >
-              <section className={`grid-${!this.state.hasLost}`}>
+              <div hidden={this.state.hasLost}>
+              <section  className='grid'>
                 <div
                   id="c0r0"
                   style={{
@@ -429,11 +430,11 @@ class GameBoard extends Component {
                   }}
                 ></div>
               </section>
+                </div>
             </Swipeable>
             <div className="score-value">Score: {this.state.score}</div>
             <section className="score-container" display="false">
               <h4 className="lose-message" hidden={!this.state.hasLost}>
-                {" "}
                 You Have Lost!
               </h4>
               <form
@@ -455,10 +456,14 @@ class GameBoard extends Component {
               </form>
             </section>
           </div>
-        <Route path="/leaderboard" >
+        <Route path="/leaderboard" render={(history) =>
+        <div>
+          {console.log(history.location.pathname)}
           <h3>Leaderboard</h3>
           <table>{leaderBoard}</table>
-        </Route>
+          </div>
+        }
+          />
       </div>
     );
   }

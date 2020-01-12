@@ -26,24 +26,8 @@ h3 {
     font-size: 40px;
     justify-content: center;
 }
-.grid-false {
 
-    background-color: rgb(93, 100, 109);
-    border-radius: 20px;
-    padding: 10px;
-    margin-top: 0px;
-    height: 400px;
-    width: 400px;
-    grid-row: 2;
-    justify-content: center;
-    align-content: center;
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    
-}
-
-.grid-true {
+.grid {
 
     background-color: rgb(93, 100, 109);
     border-radius: 20px;
@@ -60,7 +44,7 @@ h3 {
 }
 
 
-.grid-true div{
+.grid div{
     border-radius: 20px;
     margin: 5px;
 }
@@ -183,7 +167,7 @@ input {
         color: rgb(14, 46, 78);
     }
 
-    .grid-true {
+    .grid {
 
         background-color: rgb(93, 100, 109);
         border-radius: 20px;
@@ -196,24 +180,6 @@ input {
         justify-content: center;
         align-content: center;
         display:grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-    }
-
-    .grid-false {
-
-        background-color: rgb(93, 100, 109);
-        border-radius: 20px;
-        padding: 10px;
-        margin-top: 0px;
-        height: 75vw;
-        width: 75vw;
-        max-width: 350px;
-
-        /* grid-row: 2; */
-        justify-content: center;
-        align-content: center;
-        display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr 1fr;
     }
