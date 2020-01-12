@@ -10,11 +10,12 @@ body {
     color: rgb(14, 46, 78);
 }
 
+.leaderboard {
+    margin-top: -20vh;
+}
 
 
 .main {
-    grid-row: 1;
-    grid-column: 3;
     display: subgrid;
     grid-template-columns: 2fr 4fr 2fr;
 }

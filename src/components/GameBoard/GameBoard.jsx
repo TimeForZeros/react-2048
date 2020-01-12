@@ -457,7 +457,7 @@ class GameBoard extends Component {
             </section>
           </div>
         <Route path="/leaderboard" render={(history) =>
-        <div>
+        <div className='leaderboard'>
           {console.log(history.location.pathname)}
           <h3>Leaderboard</h3>
           <table>{leaderBoard}</table>
