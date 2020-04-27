@@ -8,7 +8,6 @@ import * as scoreAPI from "./utils/score-api";
 // import LoginPage from "./pages/LoginPage/LoginPage";
 import NavBar from "./components/NavBar/NavBar";
 import GameBoard from "./components/GameBoard/GameBoard";
-import Footer from './components/Footer/Footer';
 class App extends Component {
   constructor() {
     super();
@@ -36,7 +35,6 @@ class App extends Component {
             <GameBoard history={history}
              />
           </main>
-          <Footer />
         </div>
       }
       />
