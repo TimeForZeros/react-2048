@@ -20,10 +20,9 @@ class App extends Component {
 
   render() {
     return (
-      <Route path="/" render={({history})=> 
+      <Switch>
+      <Route exact path="/" render={({history})=> 
         <div className="App">
-        
-
           <header className="App-header">{/* <NavBar /> */}
           <nav className="nav-bar">
             <h2>2048 </h2>
@@ -33,13 +32,13 @@ class App extends Component {
             </section>
           </nav></header>
           <main className="container">
-            <GameBoard history={history}
-             />
+            <GameBoard history={history}/>
           </main>
           <Footer />
         </div>
       }
       />
+      </Switch>
     );
   }
 }
